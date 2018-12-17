@@ -1,0 +1,9 @@
+.idea
+.pytest_cache
+__pycache__
+config/
+etc/
+log/
+secrets/
+source-config.json
+test.json
