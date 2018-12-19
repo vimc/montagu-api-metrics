@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 set -ex
 
+HERE=${BASH_SOURCE%/*}
 if [[ ($# -eq 0) ]]; then
-    echo "Usage: ./run
+    echo "Usage: ./run MONTAGU_API_METRICS_ABS_PATH"
     exit -1;
 fi
 
 HERE=${BASH_SOURCE%/*}
+api_metrics=$1
 
 docker build --tag montagu_api_metrics --file  $HERE/Dockerfile $HERE
 
 docker run --rm \
     -p 5000:80 \
+    -v $PWD/config/volume:/root/.api  \
     --detach \
-    --name=bb8_metrics_1 \
+    --name=montagu_api_metrics_1 \
+    --restart=no \
     montagu_api_metrics
